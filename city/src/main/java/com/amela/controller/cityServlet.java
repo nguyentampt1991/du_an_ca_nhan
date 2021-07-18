@@ -22,11 +22,10 @@ public class cityServlet extends HttpServlet {
     private ThanhPhoDAO thanhPhoDAO;
 
 
-
-
-    public  void init(){
+    public void init() {
         thanhPhoDAO = new ThanhPhoDAO();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -61,17 +60,23 @@ public class cityServlet extends HttpServlet {
         }
     }
 
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("thanhPho", new ThanhPho());
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/city/create.jsp");
+        dispatcher.forward(request,response);
+    }
+
     private void viewThanhPho(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         ThanhPho thanhPho = this.thanhPhoDAO.chiTietThanhPho(id);
         RequestDispatcher dispatcher;
-        if(thanhPho == null){
+        if (thanhPho == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             request.setAttribute("thanhPho", thanhPho);
             dispatcher = request.getRequestDispatcher("city/view.jsp");
         }
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -88,7 +93,6 @@ public class cityServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
 
-
         ThanhPho existingThanhPho = thanhPhoDAO.chiTietThanhPho(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("city/edit.jsp");
 
@@ -96,11 +100,8 @@ public class cityServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("thanhPho", new ThanhPho());
-        RequestDispatcher dispatcher= request.getRequestDispatcher("/city/create.jsp");
-        dispatcher.forward(request,response);
-    }
+
+
 
     private void listCity(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -150,9 +151,7 @@ public class cityServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            case "seach":
-//                seachthanhpho(request,response);
-                break;
+
         }
 
     }
@@ -186,23 +185,7 @@ public class cityServlet extends HttpServlet {
         String mota = request.getParameter("MoTa");
         ThanhPho thanhPho = new ThanhPho(tenThanhpho,tenQuocGia,dienTich,danSo,gdp,mota);
         thanhPhoDAO.themThanhPho(thanhPho);
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<ThanhPho>> constraintViolations = validator.validate(thanhPho);
-        if (!constraintViolations.isEmpty()) {
-            String errors = "<ul>";
-            for (ConstraintViolation<ThanhPho> constraintViolation : constraintViolations) {
-                errors += "<li>" + constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage()
-                        + "</li>";
-            }
-            errors += "</ul>";
-            request.setAttribute("thanhPho", thanhPho);
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("city/create.jsp").forward(request, response);
-        } else {
-            request.setAttribute("thanhPho", thanhPho);
-            request.getRequestDispatcher("city/success.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher("city/list.jsp").forward(request,response);
 
 
 

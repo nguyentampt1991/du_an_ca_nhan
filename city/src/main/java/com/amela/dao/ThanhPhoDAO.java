@@ -186,13 +186,14 @@ public class ThanhPhoDAO implements iThanhPhoDAO {
    {
        List<ThanhPho> list = new ArrayList<>();
 
-       String strSQL = "Select * from thanhpho where TenQuocGia Like ?";
+       String strSQL = "Select * from thanhpho where TenQuocGia Like ?"+ "OR TenThanhPho LIKE  ?";
        //Nếu tìm theo từ khóa
 
        try(Connection connection= getConnection(); PreparedStatement preparedStatement =connection.prepareStatement(strSQL)){
            {
 
                 preparedStatement.setString(1,"%"+tuKhoa+"%" );
+                preparedStatement.setString(2,"%"+ tuKhoa + "%");
                 ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next())
                 {

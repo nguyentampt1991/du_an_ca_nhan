@@ -1,12 +1,12 @@
 com/amela/EncodingFilter.java
  com.amela.EncodingFilter
+com/amela/dao/iThanhPhoDAO.java
+ com.amela.dao.iThanhPhoDAO
+com/amela/model/ThanhPho.java
+ com.amela.model.ThanhPho
 com/amela/controller/SearchServlet.java
  com.amela.controller.SearchServlet
 com/amela/controller/cityServlet.java
  com.amela.controller.cityServlet
-com/amela/model/ThanhPho.java
- com.amela.model.ThanhPho
 com/amela/dao/ThanhPhoDAO.java
  com.amela.dao.ThanhPhoDAO
-com/amela/dao/iThanhPhoDAO.java
- com.amela.dao.iThanhPhoDAO

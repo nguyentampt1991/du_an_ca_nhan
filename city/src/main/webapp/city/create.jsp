@@ -22,7 +22,7 @@
     </h2>
 </center>
 <div align="center" class="list">
-    <form method="post" style="width: 1000px">
+    <form method="post" style="width: 1000px" >
         <table border="1" cellpadding="5">
             <caption>
                 <h2>Thêm Thành Phố</h2>
